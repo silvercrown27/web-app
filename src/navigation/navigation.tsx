@@ -1,27 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import navRoutes from "../../constants/navigation-routes";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Home from "../pages/home";
+import Signup from "../pages/signup";
+import Login from "../pages/login";
+import Contact from "../pages/contact";
+import About from "../pages/about";
 
-const componentsMap: { [key: string]: JSX.Element } = {
-  Home: <Home />,
-  About: <About />,
-  Login: <Login />,
-  Signup: <Signup />,
-};
-
-function Navigation() {
+const Navigation = () => {
   return (
     <Router>
       <Routes>
-        {navRoutes.map((item) => (
-          <Route key={item.route} path={item.route} element={componentsMap[item.title]} />
-        ))}
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default Navigation;

@@ -1,10 +1,11 @@
-import { NavRoute } from '../src/types/types';
+import { NavbarRouteProps } from "../src/types/types";
 
-const navRoutes: NavRoute[] = [
-  { title: "Home", route: "/home" },
-  { title: "About", route: "/about" },
-  { title: "Login", route: "/login" },
-  { title: "Signup", route: "/signup" },
+const navbarRoute: NavbarRouteProps[] = [
+  { route: "/home", title: "home" },
+  { route: "/about", title: "about" },
+  { route: "/contact-us", title: "contact" },
+  { route: "/login", title: "login" },
+  { route: "/signup", title: "signup" },
 ];
 
-export default navRoutes;
+export default navbarRoute;
