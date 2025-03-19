@@ -1,5 +1,4 @@
 import analytics from "../../assets/images/anlytics.png";
-// import { useLocation } from "react-router-dom";
 import navRoutes from "../../../constants/navigation-routes";
 import { NavbarListProps } from "../../types/types";
 

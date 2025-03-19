@@ -1,14 +1,12 @@
-import './App.css'
-import Navbar from './components/ui/navbar'
+import "./App.css";
+import Navigation from "./navigation/navigation";
 
 function App() {
-
   return (
     <>
-      <Navbar />
-      <p>Helloe</p>
+      <Navigation />
     </>
-  )
+  );
 }
 
 export default App;
