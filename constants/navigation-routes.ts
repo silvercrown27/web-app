@@ -1,7 +1,7 @@
 import { NavbarRouteProps } from "../src/types/types";
 
 const navbarRoute: NavbarRouteProps[] = [
-  { route: "/home", title: "home" },
+  { route: "/", title: "home" },
   { route: "/about", title: "about" },
   { route: "/contact-us", title: "contact" },
   { route: "/login", title: "login" },
