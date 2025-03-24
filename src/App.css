@@ -29,3 +29,15 @@
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
 }
+
+
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url('../assets/fonts/OpenSansRegular.ttf') format('truetype');
+       /* url('../assets/fonts/OpenSansRegular.woff') format('woff'),
+       url('../assets/fonts/OpenSansRegular.woff2') format('woff2'),
+       url('../assets/fonts/OpenSansRegular.otf') format('opentype'),
+       url('../assets/fonts/OpenSansRegular.eot') format('embedded-opentype'), */
+  font-weight: normal;
+  font-style: normal;
+}
