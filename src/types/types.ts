@@ -7,4 +7,5 @@ export interface NavbarListProps {
   route: string;
   title: string;
   isActive: boolean;
+  isScrolled: boolean;
 }
