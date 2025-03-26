@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url('./assets/fonts/OpenSans-Regular.ttf') format('truetype');
+  font-size: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'BlackOpsOne';
+  src: url('./assets/fonts/BlackOpsOne-Regular.ttf') format('truetype');
+  font-size: normal;
+  font-weight: normal;
+}
+
+.font-open-sans{
+  font-family: 'OpenSans', sans-serif;
+}
+
+.font-black-ops-one {
+  font-family: 'BlackOpsOne';
+}
