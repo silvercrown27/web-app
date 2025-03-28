@@ -5,10 +5,12 @@ import Button from "./buttons";
 import { useEffect, useState } from "react";
 import { AlignRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ function Navbar() {
       } `}
     >
       <div className="container mx-auto px-4 py-2">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-evenly items-center">
           <div>
             <a
               href="/"
@@ -69,9 +71,8 @@ function Navbar() {
             />
           </div>
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: isOpen ? '0%' : '100%' }}
-
+            initial={{ x: "100%" }}
+            animate={{ x: isOpen ? "0%" : "100%" }}
             className={`fixed top-0 left-0 w-full h-full bg-gray-500 flex flex-col justify-center items-center lg:hidden transition-transform ${
               isOpen ? "" : ""
             }`}
@@ -90,14 +91,34 @@ function Navbar() {
                 ))}
               </ul>
               <div className="hidden lg:flex flex-row">
-                <Button text="signup" filled={true} color="cyan" />
-                <Button text="login" filled={false} color="cyan" />
+                <Button
+                  onClick={() => navigate("/signup")}
+                  className="rounded-full bg-blue-600 text-white px-6 py-2 font-semibold transition-transform transform hover:bg-blue-700 hover:scale-105 shadow-md"
+                >
+                  Signup
+                </Button>
+                <Button
+                  onClick={() => navigate("/login")}
+                  className="rounded-full bg-white text-blue-600 px-6 py-2 font-semibold transition-transform transform hover:bg-gray-200 hover:scale-105 shadow-md border border-blue-600"
+                >
+                  Login
+                </Button>
               </div>
             </div>
           </motion.div>
           <div className="hidden lg:flex flex-row">
-            <Button text="signup" filled={true} color="cyan" />
-            <Button text="login" filled={false} color="cyan" />
+            <Button
+              onClick={() => navigate("/signup")}
+              className="rounded-full bg-blue-600 text-white px-6 py-2 font-semibold transition-transform transform hover:bg-blue-700 hover:scale-105 shadow-md"
+            >
+              Signup
+            </Button>
+            <Button
+              onClick={() => navigate("/login")}
+              className="rounded-full bg-white text-blue-600 px-6 py-2 font-semibold transition-transform transform hover:bg-gray-200 hover:scale-105 shadow-md border border-blue-600"
+            >
+              Login
+            </Button>
           </div>
         </div>
       </div>
@@ -131,23 +152,5 @@ const NavbarList = ({
     </li>
   );
 };
-
-// const HumbergerMenu = () => {
-//   return (
-//     <div className="fixed top-0 left-0 w-full h-full bg-gray-500 item-center justify-center Z-[9999]">
-//       <ul className="flex flex-column space-y-4">
-//         {navbarRoute.map((item) => (
-//           <NavbarList
-//             key={item.title}
-//             route={item.route}
-//             title={item.title}
-//             isActive={location.pathname == item.route}
-//             isScrolled={false}
-//           />
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
 
 export default Navbar;
