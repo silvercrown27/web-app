@@ -8,4 +8,10 @@ export interface NavbarListProps {
   title: string;
   isActive: boolean;
   isScrolled: boolean;
+  isOpen: boolean;
+}
+
+export interface FormChangeProps {
+  field: string;
+  value: any;
 }
