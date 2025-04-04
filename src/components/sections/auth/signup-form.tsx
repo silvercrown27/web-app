@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "../../ui/input";
 import Button from "../../ui/buttons";
+import { Label } from "../../ui/lable";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const SignupForm = () => {
   const isError = false;
 
   const handleFormChange = (field: string, value: any) => {
-    setFormData((prev) => ({...prev, [field]: value}));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const validateFormData = () => {
@@ -56,6 +57,7 @@ const SignupForm = () => {
 
       <form className="space-y-6">
         <div>
+          <Label>Full Name</Label>
           <Input
             placeholder="Enter your fullname"
             name="fullname"
@@ -67,6 +69,7 @@ const SignupForm = () => {
           />
         </div>
         <div>
+          <Label>Email</Label>
           <Input
             placeholder="Enter your email"
             name="email"
@@ -76,6 +79,7 @@ const SignupForm = () => {
           />
         </div>
         <div>
+          <Label className="text-sm">Password</Label>
           <Input
             placeholder="Enter your password"
             name="password"
@@ -93,7 +97,11 @@ const SignupForm = () => {
         </Button>
 
         {result && (
-          <div className={`px-10 py-5 rounded-4xl ${isError ? "bg-red-500" : "bg-green-500"}`}>
+          <div
+            className={`px-10 py-5 rounded-4xl ${
+              isError ? "bg-red-500" : "bg-green-500"
+            }`}
+          >
             {result}
           </div>
         )}
