@@ -1,19 +1,32 @@
-const Button = ({
-  text,
-  filled,
-  color,
-}: {
-  text: string;
-  filled: boolean;
-  color: string;
-}) => {
-    const filledClasses = filled ?
-     `bg-${color}-300` :
-     `bg-${color}`;
+import { Loader2 } from "lucide-react";
+import cn from "../../utils/utils";
+import React from "react";
 
-     const hoverClasses = `hover:bg-${color}-700 hover:shadow-lg transform hover:scale-105`;
-    
-  return <button className={`px-4 py-2 mx-2 tranition-all rounded-full border border-solid ${filledClasses} ${hoverClasses}`}>{text}</button>;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "primary";
+  loading?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  className,
+  variant = "default",
+  loading = false,
+  children,
+  ...props
+}) => {
+  return (
+    <button
+      className={cn(
+        "w-full flex items-center justify-center rounded-4xl text-white font-medium transition-all py-4",
+        variant === "default" && "bg-blue-600 hover:bg-blue-800",
+        variant === "primary" && "bg-gradient-to-b from-[#BFBFFF] to-[#1F1FFF]"
+      )}
+      disabled={loading || props.disabled}
+      {...props}
+    >
+      {loading ? <Loader2 className="animate-spin"/> : children}
+    </button>
+  );
 };
 
 export default Button;

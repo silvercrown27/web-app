@@ -1,5 +1,6 @@
 import { Send } from "lucide-react";
 import { useState } from "react";
+import Button from "../../ui/buttons";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ const Contact = () => {
     console.log(field, value);
     setFormData({ ...formData, [field]: value });
   };
+  
   const validateFormData = () => {
     setErrors({ name: "", email: "", message: "" });
 
@@ -79,9 +81,7 @@ const Contact = () => {
                 name="email"
                 placeholder="Enter Your Email Name"
                 className="w-full p-3 border border-gray-300 rounded-xl "
-                onChange={(value) => {
-                  handleFormChange("email", value.target.value);
-                }}
+                onChange={(event) => handleFormChange("email", event.target.value)}
               />
               {errors.email.length > 0 ? (
                 <div>
@@ -103,15 +103,14 @@ const Contact = () => {
               />
             </div>
 
-            <button
-              type="submit"
+            <Button
+              className="py-4 "
               onSubmit={submitForm}
               onClick={submitForm}
-              className="px-9 py-2 border rounded-full flex flex-row space-x-4 font-semibold text-xl items-center hover:bg-cyan-600  "
             >
               Contact Us
               <Send className="ml-4" />
-            </button>
+            </Button>
           </div>
           <div className="w-[45%] flex flex-col items center justify-evenly space-y-10 py-10">
             <div className="bg-gray-200 shadow-lg text-gray-800 rounded-xl px-9 py-6">
