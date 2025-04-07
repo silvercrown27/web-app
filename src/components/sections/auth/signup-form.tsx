@@ -3,71 +3,85 @@ import { useState } from "react";
 import Label from "../../ui/label";
 import Input from "../../ui/input";
 import Button from "../../ui/buttons";
+import { signupSchema } from "../../../utils/schema";
+import { createSession } from "../../../utils/cookies";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
   const [errors, setErrors] = useState({
     fullName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
-  const emailRegex = /^\S+@\S+\.\S+$/;
-
-  const handleFormChange = (field: string, value: any) => {
+  const handleFormChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
-  const handleErrors = (field: string, value: any) => {
-    setErrors((prev) => ({ ...prev, [field]: value }));
-  };
-
   const validateFormData = () => {
-    if (!formData.fullName.trim())
-      handleErrors("fullName", "Full Name is required.");
-    if (!emailRegex.test(formData.email))
-      handleErrors("email", "Please enter a valid email.");
-    if (formData.password.length < 8)
-      handleErrors("password", "Password must be at least 8 characters.");
+    const result = signupSchema.safeParse(formData);
 
-    return !Object.values(errors).some((error) => error.length > 0);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0]] = err.message;
+        }
+      });
+      setErrors((prev) => ({ ...prev, ...fieldErrors }));
+      return false;
+    }
+
+    return true;
   };
 
   const submitForm = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (validateFormData()) {
-      console.log("Signup Successful!", formData);
-    } else {
+    const isValid = validateFormData();
+    if (!isValid) {
       console.log("Please fix the errors and try again.");
+      return;
     }
 
-    const response = await fetch("https://inveca.co/users", {
+    const { confirmPassword, ...payload } = formData;
+
+    const response = await fetch("https://inveca.co/signup", {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(payload),
       method: "POST",
     });
 
-    console.log(response);
+    const data = await response.json();
+
+    if (response.ok && data?.token) {
+      createSession(data.token);
+      console.log("Signup Successful!", data);
+    } else {
+      console.log("Signup failed:", data?.message || "Unknown error");
+    }
   };
 
   return (
-    <section className="my-16 mx-auto max-w-5xl p-8 bg-white shadow-md rounded-3xl border border-gray-200 flex flex-col md:flex-row gap-10 justify-center">
-      <div className="w-full md:w-2/3">
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
+    <section className="my-16 mx-auto max-w-3xl p-8 bg-white shadow-md rounded-3xl border border-gray-200 flex flex-col gap-10 justify-center">
+      <div className="w-full">
+        <h1 className="text-3xl font-bold text-center mb-4 text-blue-600">
           Create an Account
         </h1>
-        <p className="text-center text-gray-600 mb-6">
+        <p className="text-center text-gray-600 mb-8">
           Sign up to get started with WorkFlo.
         </p>
-        <form onSubmit={submitForm} className="space-y-6">
+        <form onSubmit={submitForm} className="space-y-5">
           <div>
             <Label htmlFor="fullName">Full Name</Label>
             <Input
@@ -110,13 +124,30 @@ const SignupForm = () => {
             )}
           </div>
 
+          <div>
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              type="password"
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                handleFormChange("confirmPassword", e.target.value)
+              }
+              placeholder="Re-enter Password"
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirmPassword}
+              </p>
+            )}
+          </div>
+
           <Button
             type="submit"
             className="w-full flex items-center justify-center gap-2"
           >
             Sign Up <Send size={16} />
           </Button>
-
         </form>
       </div>
     </section>
