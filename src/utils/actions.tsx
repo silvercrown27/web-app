@@ -20,11 +20,13 @@ export async function signup(
   const { fullName, email, password } = parsed.data;
 
   try {
-    const response = await fetch("https://localhost:8000/api/signup", {
-      method: "post",
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const response = await fetch(`${apiUrl}/signup`, {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fullName, email, password }),
-    });
+    });    
 
     if (!response.ok) {
       const resData = await response.json();
