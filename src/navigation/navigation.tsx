@@ -5,18 +5,21 @@ import Login from "../pages/login";
 import Contact from "../pages/contact";
 import About from "../pages/about";
 import DashboardContent from "../pages/dashboard";
+import ProtectedRedirect from "./protected-redirect";
 
 const Navigation = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact-us" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path='/dashboard' element={<DashboardContent />} />
-      </Routes>
+      <ProtectedRedirect>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<DashboardContent />} />
+        </Routes>
+      </ProtectedRedirect>
     </Router>
   );
 };
