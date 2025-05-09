@@ -7,16 +7,16 @@ export const SignupSchema = z
     password: z
       .string()
       .min(8, "Password must be atleast 8 characters")
-      .regex(/a-zA-Z/, "Password must contain both capital and small letters")
-      .regex(/0-9/, "Password must contain atleast one number")
-      .regex(
-        /[^a-zA-Z0-9]/,
-        "Password must contain atleast one special character"
-      )
+      // .regex(/a-zA-Z/, "Password must contain both capital and small letters")
+      // .regex(/0-9/, "Password must contain atleast one number")
+      // .regex(
+      //   /[^a-zA-Z0-9]/,
+      //   "Password must contain atleast one special character"
+      // )
       .trim(),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().trim(),
   })
-  .refine((data) => data.password !== data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
