@@ -3,6 +3,16 @@ export type SignupFormState = {
     fullName?: string[];
     email?: string[];
     password?: string[];
+    confirmPassword?: string[];
+    general?: string[];
+  };
+  success?: boolean;
+};
+
+export type LoginFormState = {
+  errors?: {
+    email?: string[];
+    password?: string[];
     general?: string[];
   };
   success?: boolean;

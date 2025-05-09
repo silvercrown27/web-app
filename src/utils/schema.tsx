@@ -6,19 +6,25 @@ export const SignupSchema = z
     email: z.string().email("Please enter a valid email"),
     password: z
       .string()
-      .min(8, { message: "Be at least 8 characters long" })
-      .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
-      .regex(/[0-9]/, { message: "Contain at least one number." })
-      .regex(/[^a-zA-Z0-9]/, {
-        message: "Contain at least one special character.",
-      })
+      .min(8, "Password must be atleast 8 characters")
+      .regex(/a-zA-Z/, "Password must contain both capital and small letters")
+      .regex(/0-9/, "Password must contain atleast one number")
+      .regex(
+        /[^a-zA-Z0-9]/,
+        "Password must contain atleast one special character"
+      )
       .trim(),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password !== data.confirmPassword, {
     message: "Passwords do not match.",
     path: ["confirmPassword"],
   });
+
+export const LoginSchema = z.object({
+  email: z.string().email("Please enter a valid email"),
+  password: z.string(),
+});
 
 export const TaskSchema = z.object({
   name: z.string(),

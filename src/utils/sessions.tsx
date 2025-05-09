@@ -31,6 +31,7 @@ export async function verifySession(): Promise<{ isAuth: boolean; user: any }> {
     if (!res.ok) throw new Error('Auth failed');
 
     const user = await res.json();
+    console.log("Session info => ", user)
 
     if (!user?.role || !user?.email) {
       return { isAuth: false, user: null };

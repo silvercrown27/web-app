@@ -67,6 +67,19 @@ const SignupForm = () => {
             )}
           </div>
 
+          <div>
+            <Label htmlFor="confirmPassword">confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+            />
+            {formState?.errors?.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">{formState?.errors?.confirmPassword}</p>
+            )}
+          </div>
+
           <Button
             type="submit"
             className="w-full flex items-center justify-center gap-2"
